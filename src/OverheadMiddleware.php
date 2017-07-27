@@ -25,9 +25,7 @@ class OverheadMiddleware implements MiddlewareInterface
         $returnCommands = ['GNU Terry Pratchett'];
 
         if ($request->hasHeader(self::HEADER)) {
-            $header = $request->getHeaders()[self::HEADER];
-
-            $commands = explode(',', $header);
+            $commands = $request->getHeader(self::HEADER);
 
             foreach ($commands as $command) {
                 $command = trim($command);
@@ -40,6 +38,6 @@ class OverheadMiddleware implements MiddlewareInterface
 
         $response = $delegate->process($request);
 
-        return $response->withHeader(self::HEADER, implode(', ', $returnCommands));
+        return $response->withHeader(self::HEADER, $returnCommands);
     }
 }
