@@ -1,0 +1,20 @@
+{
+    "name": "mez/clacks-middleware",
+    "description": "Clacks Middleware",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Martin Meredith",
+            "email": "martin.meredith@stickee.co.uk"
+        }
+    ],
+    "require": {
+        "http-interop/http-middleware": "^0.4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Clacks\\": "src/"
+        }
+    }
+}
