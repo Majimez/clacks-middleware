@@ -23,8 +23,9 @@
 
 namespace Clacks;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Interop\Http\Server\MiddlewareInterface;
+use Interop\Http\Server\RequestHandlerInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -40,12 +41,12 @@ class OverheadMiddleware implements MiddlewareInterface
      * Process an incoming server request and return a response, adding in X-Clacks-Overhead headers
      *
      * @param \Psr\Http\Message\ServerRequestInterface|\Psr\Http\Message\MessageInterface $request
-     * @param \Interop\Http\ServerMiddleware\DelegateInterface $delegate
+     * @param \Interop\Http\Server\RequestHandlerInterface $handler
      *
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \InvalidArgumentException
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $returnCommands = ['GNU Terry Pratchett'];
 
@@ -55,7 +56,7 @@ class OverheadMiddleware implements MiddlewareInterface
 
         $request = $request->withHeader(self::HEADER, $returnCommands);
 
-        $response = $delegate->process($request);
+        $response = $handler->handle($request);
 
         return $response->withHeader(self::HEADER, $returnCommands);
     }

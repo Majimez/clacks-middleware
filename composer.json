@@ -6,12 +6,12 @@
     "authors": [
         {
             "name": "Martin Meredith",
-            "email": "martin.meredith@stickee.co.uk"
+            "email": "martin@sourceguru.net"
         }
     ],
     "require": {
         "php": "^7.1",
-        "http-interop/http-middleware": "^0.4.1"
+        "http-interop/http-server-middleware": "^1.0"
     },
     "autoload": {
         "psr-4": {
