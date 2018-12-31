@@ -9,24 +9,24 @@
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
  */
 
 namespace Clacks;
 
-use Interop\Http\Server\MiddlewareInterface;
-use Interop\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Class OverheadMiddleware
@@ -38,16 +38,18 @@ class OverheadMiddleware implements MiddlewareInterface
     public const HEADER = 'X-Clacks-Overhead';
 
     /**
-     * Process an incoming server request and return a response, adding in X-Clacks-Overhead headers
+     * Process an incoming server request and return a response, adding in
+     * X-Clacks-Overhead headers
      *
-     * @param \Psr\Http\Message\ServerRequestInterface|\Psr\Http\Message\MessageInterface $request
-     * @param \Interop\Http\Server\RequestHandlerInterface $handler
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @param \Psr\Http\Server\RequestHandlerInterface $handler
      *
      * @return \Psr\Http\Message\ResponseInterface
-     * @throws \InvalidArgumentException
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
-    {
+    public function process(
+        ServerRequestInterface $request,
+        RequestHandlerInterface $handler
+    ): ResponseInterface {
         $returnCommands = ['GNU Terry Pratchett'];
 
         if ($request->hasHeader(self::HEADER)) {
@@ -75,12 +77,14 @@ class OverheadMiddleware implements MiddlewareInterface
         $commands = $request->getHeader(self::HEADER);
 
         foreach ($commands as $command) {
-            if ($retval = $this->processCommand($command)) {
+            $retval = $this->processCommand($command);
+
+            if (!is_null($retval)) {
                 $returnCommands[] = $retval;
             }
         }
 
-        return $returnCommands;
+        return array_unique($returnCommands);
     }
 
     /**
@@ -93,6 +97,10 @@ class OverheadMiddleware implements MiddlewareInterface
     private function processCommand($command): ?array
     {
         $command = trim($command);
+
+        if (strlen($command) > 64) {
+            return null;
+        }
 
         if (preg_match('/^GNU /', $command)) {
             return $command;
