@@ -1,7 +1,7 @@
 {
     "name": "majimez/clacks-middleware",
-    "description": "Clacks Middleware",
     "type": "library",
+    "description": "Clacks Middleware",
     "license": "MIT",
     "authors": [
         {
@@ -12,6 +12,9 @@
     "require": {
         "php": "^7.3",
         "psr/http-server-middleware": "^1.0"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.3"
     },
     "autoload": {
         "psr-4": {
