@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "231d79106debeaceb7af6f92997b7be5",
+    "content-hash": "fdb86cb9636b3a2bdd4fc2865d23bec8",
     "packages": [
         {
             "name": "psr/http-message",
@@ -170,7 +170,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1"
+        "php": "^7.3"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

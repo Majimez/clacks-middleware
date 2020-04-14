@@ -1,16 +1,16 @@
 {
-    "name": "mez/clacks-middleware",
+    "name": "majimez/clacks-middleware",
     "description": "Clacks Middleware",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Martin Meredith",
-            "email": "martin@sourceguru.net"
+            "email": "martin@majimez.com"
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.3",
         "psr/http-server-middleware": "^1.0"
     },
     "autoload": {
